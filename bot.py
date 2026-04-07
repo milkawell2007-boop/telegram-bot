@@ -40,7 +40,7 @@ def run_bot():
 def home():
     return "Bot is alive"
 
-if name == "__main__":
+if __name__ == "__main__":
     t = threading.Thread(target=run_bot)
     t.start()
 
