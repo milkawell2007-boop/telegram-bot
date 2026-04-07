@@ -1,9 +1,13 @@
 import telebot
 import time
+import threading
+from flask import Flask
 
 TOKEN = '8673666660:AAFz6UelHonz6sMjXbnUnJ8ZVLYx11corLQ'
 
 bot = telebot.TeleBot(TOKEN)
+
+app = Flask(__name__)
 
 users = [
     "@aukri",
@@ -21,12 +25,23 @@ def handle_message(message):
             mention_text = " ".join(users)
             bot.send_message(message.chat.id, mention_text)
         except Exception as e:
-            print(f"Ошибка при отправке: {e}")
+            print(f"Ошибка: {e}")
 
-while True:
-    try:
-        print("Бот работает...")
-        bot.polling(none_stop=True, interval=1, timeout=20)
-    except Exception as e:
-        print(f"Ошибка: {e}")
-        time.sleep(5)
+def run_bot():
+    while True:
+        try:
+            print("Бот запущен")
+            bot.polling(none_stop=True, interval=1, timeout=20)
+        except Exception as e:
+            print(f"Ошибка бота: {e}")
+            time.sleep(5)
+
+@app.route('/')
+def home():
+    return "Bot is alive"
+
+if name == "__main__":
+    t = threading.Thread(target=run_bot)
+    t.start()
+
+    app.run(host="0.0.0.0", port=10000)
