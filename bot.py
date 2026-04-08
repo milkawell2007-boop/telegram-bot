@@ -29,6 +29,8 @@ def handle_message(message):
             print(f"Ошибка: {e}")
 
 def run_bot():
+    print("БОТ ПОШЁЛ В РАБОТУ")
+    
     while True:
         try:
             print("Бот запущен")
