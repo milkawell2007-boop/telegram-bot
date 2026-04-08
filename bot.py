@@ -20,7 +20,7 @@ users = [
 
 @bot.message_handler(func=lambda message: True)
 def handle_message(message):
-    if message.text and message.text.lower() == "созвать конченных":
+    if message.text and "созвать конченных" in message.text.lower():
         try:
             bot.send_message(message.chat.id, "начинаю созыв конченных")
             mention_text = " ".join(users)
@@ -55,5 +55,5 @@ if __name__ == "__main__":
     t = threading.Thread(target=run_bot)
     t.daemon = True
     t.start()
-port = int(os.environ.get("PORT", 10000))
-app.run(host="0.0.0.0", port=port, debug=False, use_reloader=False)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port, debug=False, use_reloader=False)
