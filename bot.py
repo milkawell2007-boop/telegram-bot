@@ -40,6 +40,8 @@ def run_bot():
 
     print("БОТ ПОШЁЛ В РАБОТУ")
 
+    time.sleep(10)  
+
     while True:
         try:
             bot.polling(none_stop=True, interval=1, timeout=20)
