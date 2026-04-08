@@ -28,12 +28,20 @@ def handle_message(message):
         except Exception as e:
             print(f"Ошибка: {e}")
 
+is_running = False
+
 def run_bot():
+    global is_running
+
+    if is_running:
+        return
+
+    is_running = True
+
     print("БОТ ПОШЁЛ В РАБОТУ")
-    
+
     while True:
         try:
-            print("Бот запущен")
             bot.polling(none_stop=True, interval=1, timeout=20)
         except Exception as e:
             print(f"Ошибка бота: {e}")
@@ -45,6 +53,7 @@ def home():
 
 if __name__ == "__main__":
     t = threading.Thread(target=run_bot)
+    t.daemon = True
     t.start()
 port = int(os.environ.get("PORT", 10000))
 app.run(host="0.0.0.0", port=port, debug=False, use_reloader=False)
