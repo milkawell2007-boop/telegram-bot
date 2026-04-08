@@ -4,10 +4,9 @@ import time
 import threading
 from flask import Flask
 
-TOKEN = '8673666660:AAHoGsYm0R8XENa4Itm9kAroY7jyBjW2AcE'
+TOKEN = 'ТВОЙ_НОВЫЙ_ТОКЕН'
 
 bot = telebot.TeleBot(TOKEN)
-
 app = Flask(__name__)
 
 users = [
@@ -23,22 +22,12 @@ def handle_message(message):
     if message.text and "созвать конченных" in message.text.lower():
         try:
             bot.send_message(message.chat.id, "начинаю созыв конченных")
-            mention_text = " ".join(users)
-            bot.send_message(message.chat.id, mention_text)
+            bot.send_message(message.chat.id, " ".join(users))
         except Exception as e:
             print(f"Ошибка: {e}")
 
-is_running = False
-
 def run_bot():
-    global is_running
-
-    if is_running:
-        return
-
-    is_running = True
-
-    print("БОТ ПОШЁЛ В РАБОТУ")
+    print("БОТ ЗАПУЩЕН")
 
     time.sleep(5)
 
@@ -51,14 +40,13 @@ def run_bot():
         except Exception as e:
             print(f"Ошибка бота: {e}")
             time.sleep(5)
-            
+
 @app.route('/')
 def home():
     return "Bot is alive"
 
 if __name__ == "__main__":
-    t = threading.Thread(target=run_bot)
-    t.daemon = True
-    t.start()
+    threading.Thread(target=run_bot, daemon=True).start()
+
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port, debug=False, use_reloader=False)
