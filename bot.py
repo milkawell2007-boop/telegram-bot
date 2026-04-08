@@ -19,6 +19,8 @@ users = [
 
 @bot.message_handler(func=lambda message: True)
 def handle_message(message):
+    print("ПРИШЛО СООБЩЕНИЕ:", message.text)
+
     if message.text and "созвать конченных" in message.text.lower():
         try:
             bot.send_message(message.chat.id, "начинаю созыв конченных")
