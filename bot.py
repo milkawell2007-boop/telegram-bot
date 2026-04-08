@@ -30,12 +30,14 @@ def handle_message(message):
 
 def run_bot():
     print("БОТ ЗАПУЩЕН")
-
-    time.sleep(5)
-
-    bot.remove_webhook()
-    time.sleep(1)
-
+    while True:
+        try:
+            print("Polling start…")
+            bot.polling(none_stop=True, interval=1, timeout=20)
+        except Exception as e:
+            print(f"Ошибка бота: {e}")
+            time.sleep(5)
+            
     while True:
         try:
             bot.polling(none_stop=True, interval=1, timeout=20)
