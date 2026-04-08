@@ -40,7 +40,10 @@ def run_bot():
 
     print("БОТ ПОШЁЛ В РАБОТУ")
 
-    time.sleep(10)  
+    time.sleep(5)
+
+    bot.remove_webhook()
+    time.sleep(1)
 
     while True:
         try:
@@ -48,7 +51,7 @@ def run_bot():
         except Exception as e:
             print(f"Ошибка бота: {e}")
             time.sleep(5)
-
+            
 @app.route('/')
 def home():
     return "Bot is alive"
